@@ -1,27 +1,24 @@
-#include<stdio.h>
-template<typename T>
+#include <stdio.h>
 
-T Min(T a, T b) {
-	if (a > b) {
-		return b;
-	}
-	else
-	{
-		return a;
-	}
-}
-template <>
-char Min<char>(char a, char b) {
 
-	printf( "数字以外は代入できません");
-	return 0;
+int Recursive1(int kyuuryou, int zikan, int kotei) {
+    if (kyuuryou >= kotei) {
+        printf("%d時間後に超える", zikan);
+        return zikan;
+    }
+
+    printf("%d  %d\n", kyuuryou, kotei);
+    kyuuryou = kyuuryou * 2 - 50;
+
+    return (Recursive1(kyuuryou, ++zikan, kotei+1072));
 }
+
 int main() {
-	
+    int saiki = 100;       
+    int ippan = 1072;      
+    int zikan = 0;
 
-	printf("%d\n",Min<int>(100,200));
-	printf("%f\n", Min<float>(3.3f, 2.2));
-	printf("%lf\n", Min<double>(100.2, 123.4));
-	printf("%c\n", Min<char>('A','B'));
-		return 0;
+    int resullt1 = Recursive1(saiki, zikan, ippan);
+
+    return 0;
 }
