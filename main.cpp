@@ -2,49 +2,46 @@
 #include <windows.h>
 #include <time.h>
 
-typedef void(/*関数ポインタPFuncを定義*/)(int*, int*);
+// 関数ポインタの定義
+typedef void (*PFunc)(int*, int*);
 
 // コールバック関数
 void DispResult(int* s, int* kazu) {
-
-	int kekka = /*ランダム関数*/ % 2;
+	int dice = rand() % 6 + 1;  
+	int kekka = dice % 2;       
 
 	if (kekka == *kazu) {
 		if (kekka == 0)
-			printf("%dで丁（偶数）でした!大当たり!!\n", kekka);
+			printf("%dで丁（偶数）でした! 大当たり!!\n", dice);
 		else
-			printf("%dで半（奇数）でした!大当たり!!\n", kekka);
+			printf("%dで半（奇数）でした! 大当たり!!\n", dice);
 	}
 	else {
 		if (kekka == 0)
-			printf("%dで丁（偶数）でした!残念!!\n", kekka);
+			printf("%dで丁（偶数）でした! 残念!!\n", dice);
 		else
-			printf("%dで半（奇数）でした!残念!!\n", kekka);
+			printf("%dで半（奇数）でした! 残念!!\n", dice);
 	}
-
 }
 
 // コールバック関数を呼び出す
 void setTimeout(PFunc p, int second, int kazu) {
-
 	puts("さて結果は…\n");
 
 	for (int i = 0; i < second; i++) {
-		Sleep(/*考えてみよう*/);
+		Sleep(1000); 
 		printf("%d...\n", second - i);
 	}
 
 	p(&second, &kazu);
 }
 
-
 int main() {
-
 	int kazu;
 
-	srand(static_cast<unsigned int>(time(NULL)));
+	srand((unsigned int)time(NULL));
 
-	printf("丁（偶数）ならゼロ、半（奇数）なら1を入力してください\n");
+	printf("丁（偶数）なら0、半（奇数）なら1を入力してください\n");
 	scanf_s("%d", &kazu);
 
 	if (kazu == 0) {
@@ -55,7 +52,7 @@ int main() {
 	}
 
 	PFunc p;
-	p = /*Disp関数のアドレスを代入*/;
+	p = DispResult;
 	setTimeout(p, 3, kazu);
 
 	return 0;
